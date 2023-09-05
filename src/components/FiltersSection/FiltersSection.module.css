@@ -1,0 +1,30 @@
+.FiltersSection {
+	width: 100%;
+	height: 50vh;
+	background-image: url("/bookshelf-encyclopedia-books-je5ov4lp8bgmirr0.jpg");
+	background-repeat: no-repeat;
+	background-position: center;
+	background-blend-mode: multiply;
+	background-size: cover;
+	background-color: rgba(0,0,0,0.6);
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	gap: 10px;
+	box-shadow: 0 0 10px #000000;
+}
+
+.title {
+	font-family: 'Baskervville', serif;
+	color: #f1f1f1;
+	text-align: center;
+}
+
+.filters {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	gap: 10px;
+	flex-wrap: wrap;
+}
