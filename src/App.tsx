@@ -7,36 +7,27 @@ import {
 import './App.css';
 
 function App() {
-    const { data, isLoading, error } = useGetVolumesQuery({
-        q: 'frontend',
-        limit: 30,
-        page: 1,
-    });
-    console.log(data);
+    // const { data, isLoading, error } = useGetVolumesQuery({
+    //     q: 'frontend',
+    //     limit: 30,
+    //     page: 1,
+    // });
+    // console.log(data);
 
     return (
         <div
-            style={{
-                display: 'flex',
-                flexDirection: 'column',
-                gap: 10,
-                alignItems: 'center',
-                paddingBottom: 20,
-            }}
+            style={
+                {
+                    // display: 'flex',
+                    // flexDirection: 'column',
+                    // gap: 10,
+                    // alignItems: 'center',
+                    // paddingBottom: 20,
+                }
+            }
         >
             <FiltersSection />
-            <span>Найдено 448 книг</span>
             <BooksSection />
-            <button
-                style={{
-                    border: 'none',
-                    outline: 'none',
-                    padding: '10px 10px',
-                    cursor: 'pointer',
-                }}
-            >
-                Загрузить ещё...
-            </button>
         </div>
     );
 }

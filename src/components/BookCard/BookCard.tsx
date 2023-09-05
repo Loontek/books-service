@@ -1,19 +1,27 @@
 import React from 'react';
+import { IVolume } from '@/types';
 import styles from './BookCard.module.css';
 
-const BookCard: React.FC = () => {
+interface BookCardProps {
+    volume: IVolume;
+}
+
+const BookCard: React.FC<BookCardProps> = ({ volume }) => {
     return (
         <div className={styles.BookCard}>
             <img
+                className={styles.img}
                 src={
-                    'http://books.google.com/books/publisher/content?id=jQJFDwAAQBAJ&printsec=frontcover&img=1&zoom=5&edge=curl&imgtk=AFLRE7081k8GeFP-P07N5zmzEyAyKEYa-thhU3S3hK5Z5FpG5ZtvGz6ZMElscjvjzk59MMh9EpdjZYf6baL3BPfNXcd8HBfeEE8iKjc2uh-by3jHx9uq6PgC6g-1gXWy6Em876V0xgtC&source=gbs_api'
+                    volume.volumeInfo.imageLinks
+                        ? volume.volumeInfo.imageLinks.thumbnail
+                        : 'https://www.funnyart.club/uploads/posts/2022-05/1653877149_1-www-funnyart-club-p-kartinki-dlya-oblozhki-knigi-krasivo-1.jpg'
                 }
-                width={150}
+                height={250}
                 alt=""
             />
-            <h2>Биология. Полный школьный курс</h2>
-            <span>Study Aids / General</span>
-            <p>Лилия Камлюк, Николай Лисов</p>
+            <h2 className={styles.title}>{volume.volumeInfo.title}</h2>
+            <span>{volume.volumeInfo.categories?.[0]}</span>
+            <p>{volume.volumeInfo.authors?.join(', ')}</p>
         </div>
     );
 };

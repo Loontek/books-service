@@ -11,18 +11,34 @@ export const volumeApi = createApi({
             query: id => `volumes/${id}?${import.meta.env.VITE_API_KEY}`,
         }),
         getVolumes: builder.query<
-            IVolume[],
-            { q: string; limit: number; page: number }
+            { totalItems: number; items: IVolume[] },
+            {
+                q: string;
+                subject: string;
+                orderBy: string;
+                limit: number;
+                page: number;
+            }
         >({
             query: arg => {
-                const { q, limit, page } = arg;
+                const { q, subject, orderBy, limit, page } = arg;
 
-                return `volumes?q=${q}&startIndex=${
-                    page * limit
-                }&maxResults=${limit}&${import.meta.env.VITE_API_KEY}`;
+                const query =
+                    subject === 'all'
+                        ? `q=${q}`
+                        : `q="${q}"+subject:${subject}`;
+                const startIndex = page * limit;
+
+                return `volumes?${query}&orderBy=${orderBy}&startIndex=${startIndex}&maxResults=${limit}&${
+                    import.meta.env.VITE_API_KEY
+                }`;
             },
         }),
     }),
 });
 
-export const { useGetVolumeByIdQuery, useGetVolumesQuery } = volumeApi;
+export const {
+    useGetVolumeByIdQuery,
+    useGetVolumesQuery,
+    useLazyGetVolumesQuery,
+} = volumeApi;
