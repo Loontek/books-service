@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { ChangeEvent } from 'react';
 import styles from './Select.module.css';
 
 interface SelectProps {
@@ -8,11 +8,25 @@ interface SelectProps {
         value: string;
         label: string;
     }[];
+    defaultValue: string;
+    onChange: (e: ChangeEvent<HTMLSelectElement>) => void;
 }
 
-const Select: React.FC<SelectProps> = ({ name, description, options }) => {
+const Select: React.FC<SelectProps> = ({
+    name,
+    description,
+    options,
+    defaultValue,
+    onChange,
+}) => {
     return (
-        <select className={styles.Select} name={name} id="" defaultValue="">
+        <select
+            className={styles.Select}
+            name={name}
+            id=""
+            defaultValue={defaultValue}
+            onChange={e => onChange(e)}
+        >
             <option value="" disabled>
                 {description}
             </option>
