@@ -1,0 +1,11 @@
+.img {
+	height: 80%;
+	flex-shrink: 0;
+	width: 30%;
+}
+
+.content {
+	display: flex;
+	flex-direction: column;
+	gap: 20px;
+}

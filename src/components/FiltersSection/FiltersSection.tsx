@@ -36,27 +36,25 @@ const FiltersSection: React.FC<FilterSectionProps> = () => {
         dispatch(setActiveSorter(value));
     };
 
-    const onSearchQueryChange = (e: ChangeEvent<HTMLInputElement>) => {
-        const value = e.target.value;
-
+    const onSearchQueryChange = (value: string) => {
         dispatch(setSearchQuery(value));
     };
 
     return (
         <div className={styles.FiltersSection}>
-            <h1 className={styles.title}>Найди свою любимую книгу</h1>
+            <h1 className={styles.title}>Find your favourite book</h1>
             <SearchField onChange={onSearchQueryChange} onClick={onClick} />
             <div className={styles.filters}>
                 <Select
                     name="category"
-                    description="Выберите категорию"
+                    description="Choose category"
                     options={categories}
                     defaultValue={activeCategory}
                     onChange={onCategoryChange}
                 />
                 <Select
                     name="sort"
-                    description="Выберите сортировку"
+                    description="Sort by"
                     options={sorters}
                     defaultValue={activeSorter}
                     onChange={onSorterChange}

@@ -1,15 +1,30 @@
-import React, { ChangeEvent, KeyboardEventHandler } from 'react';
+import React, {
+    ChangeEvent,
+    KeyboardEventHandler,
+    useEffect,
+    useState,
+} from 'react';
 import searchIcon from '/magnifying-glass-solid.svg';
 import { useDebounce } from '@/hooks/useDebounce.ts';
 import styles from './SearchField.module.css';
 
 interface SearchFieldProps {
-    onChange: (e: ChangeEvent<HTMLInputElement>) => void;
+    onChange: (value: string) => void;
     onClick: () => void;
 }
 
 const SearchField: React.FC<SearchFieldProps> = ({ onChange, onClick }) => {
-    const onChangeDebounced = useDebounce(onChange, 500);
+    const [searchQuery, setSearchQuery] = useState('');
+    const onChangeDebounced = useDebounce(
+        (e: ChangeEvent<HTMLInputElement>) => setSearchQuery(e.target.value),
+        500,
+    );
+
+    useEffect(() => {
+        if (!searchQuery) return;
+
+        onChange(searchQuery);
+    }, [searchQuery]);
 
     const onEnterPress: KeyboardEventHandler<HTMLInputElement> = e => {
         if (e.code === 'Enter') {
@@ -21,7 +36,8 @@ const SearchField: React.FC<SearchFieldProps> = ({ onChange, onClick }) => {
         <div className={styles.SearchField}>
             <input
                 type="text"
-                onChange={e => onChangeDebounced(e)}
+                placeholder="Search..."
+                onChange={onChangeDebounced}
                 onKeyDown={onEnterPress}
             />
             <button type="button" onClick={() => onClick()}>

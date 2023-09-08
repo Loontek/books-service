@@ -1,31 +1,39 @@
 import React, { useEffect, useState } from 'react';
-import BookCard from '@components/BookCard/BookCard.tsx';
+import VolumeCard from '@components/VolumeCard/VolumeCard.tsx';
 import { useLazyGetVolumesQuery } from '@/store/api/volumesApi.ts';
 import { useAppSelector } from '@/hooks/store.ts';
 import { IVolume } from '@/types';
-import styles from './BooksSection.module.css';
+import Error from '@components/UI/Error/Error.tsx';
+import Loader from '@components/UI/Loader/Loader.tsx';
+import styles from './VolumesSection.module.css';
 
-const BooksSection: React.FC = () => {
+const VolumesSection: React.FC = () => {
     const [page, setPage] = useState(0);
     const [volumes, setVolumes] = useState<IVolume[]>([]);
     const { activeCategory, activeSorter, searchQuery, startSearch } =
         useAppSelector(state => state.filters);
-    const [getVolumes, { data, isLoading, error }] = useLazyGetVolumesQuery();
+    const [getVolumes, { data, isFetching, error }] = useLazyGetVolumesQuery();
 
     useEffect(() => {
         if (startSearch && searchQuery) {
+            setVolumes([]);
+            setPage(0);
             getVolumes({
                 q: searchQuery,
                 subject: activeCategory,
                 orderBy: activeSorter,
                 limit: 30,
-                page,
+                page: 0,
             });
         }
-    }, [startSearch]);
+    }, [startSearch, searchQuery]);
 
     useEffect(() => {
-        if (searchQuery) {
+        console.log(isFetching);
+    }, [isFetching]);
+
+    useEffect(() => {
+        if (searchQuery && page) {
             getVolumes({
                 q: searchQuery,
                 subject: activeCategory,
@@ -39,10 +47,6 @@ const BooksSection: React.FC = () => {
     useEffect(() => {
         if (!data) return;
 
-        if (startSearch) {
-            setVolumes(data.items);
-        }
-
         setVolumes(prevState => [...prevState, ...data.items]);
     }, [data]);
 
@@ -51,21 +55,20 @@ const BooksSection: React.FC = () => {
     };
 
     return (
-        <div className={styles.BooksSection}>
-            <span>Найдено {data ? data?.totalItems : 0} книг</span>
+        <div className={styles.VolumesSection}>
+            <span>Founded {data ? data?.totalItems : 0} books</span>
             <div className={styles.content}>
                 {error ? (
-                    <h2>Something went wrong...</h2>
-                ) : isLoading ? (
-                    <h2>Loading...</h2>
+                    <Error />
                 ) : (
                     <>
                         {volumes.map(volume => (
-                            <BookCard key={volume.id} volume={volume} />
+                            <VolumeCard key={volume.id} volume={volume} />
                         ))}
                     </>
                 )}
             </div>
+            {isFetching && <Loader />}
             {!!volumes.length && (
                 <button className={styles.button} onClick={() => onClick()}>
                     Load more...
@@ -75,4 +78,4 @@ const BooksSection: React.FC = () => {
     );
 };
 
-export default BooksSection;
+export default VolumesSection;
