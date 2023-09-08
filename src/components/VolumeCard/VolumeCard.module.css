@@ -1,0 +1,26 @@
+.VolumeCard {
+	font-family: 'Baskervville', serif;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 10px;
+	width: 100%;
+	height: 450px;
+	max-width: 300px;
+	padding: 20px;
+	background-color: #f1f1f1;
+	box-shadow: 0 0px 5px #008b8b;
+	cursor: pointer;
+}
+
+.img {
+	width: 100%;
+}
+
+.title {
+	font-size: 20px;
+	overflow: hidden;
+	display: -webkit-box;
+	-webkit-line-clamp: 3;
+	-webkit-box-orient: vertical;
+}

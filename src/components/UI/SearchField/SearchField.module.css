@@ -1,0 +1,26 @@
+.SearchField {
+	display: flex;
+	align-items: center;
+	height: 30px;
+	width: 100%;
+	max-width: 300px;
+}
+
+.SearchField input {
+	height: 100%;
+	padding: 10px;
+	font-size: 16px;
+	flex-grow: 1;
+	border: none;
+	outline: none;
+	background-color: #ffffff;
+}
+
+.SearchField button {
+	height: 100%;
+	width: 30px;
+	border: none;
+	outline: none;
+	background-color: #ffffff;
+	cursor: pointer;
+}

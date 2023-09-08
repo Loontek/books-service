@@ -1,0 +1,16 @@
+.VolumePage {
+	width: 100%;
+	min-height: 100%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	gap: 20px;
+	padding: 50px;
+}
+
+@media all and (max-width: 800px){
+	.VolumePage {
+		flex-direction: column;
+		padding: 10px;
+	}
+}

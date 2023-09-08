@@ -1,0 +1,7 @@
+.Select {
+	width: max-content;
+	padding: 5px 10px;
+	border: none;
+	outline: none;
+	cursor: pointer;
+}
