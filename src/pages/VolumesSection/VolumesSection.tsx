@@ -29,10 +29,6 @@ const VolumesSection: React.FC = () => {
     }, [startSearch, searchQuery]);
 
     useEffect(() => {
-        console.log(isFetching);
-    }, [isFetching]);
-
-    useEffect(() => {
         if (searchQuery && page) {
             getVolumes({
                 q: searchQuery,
